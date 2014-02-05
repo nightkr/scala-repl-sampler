@@ -47,5 +47,6 @@ object Runner {
   case object RuntimeFail extends Fail
   case object Success extends ResultStatus
 
-  case class Result(cmd: String, result: String, status: ResultStatus)
+  case class Result(cmd: String, output: String, status: ResultStatus)
+
 }
