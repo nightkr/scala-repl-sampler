@@ -2,7 +2,6 @@ package replsampler
 
 import scala.tools.nsc.Settings
 import scala.tools.nsc.interpreter.{Results, IMain}
-import scala.reflect.runtime.{universe => ru}
 
 class Runner {
   val intp = {
@@ -11,8 +10,7 @@ class Runner {
     new IMain(settings)
   }
 
-  private var buf = new StringBuilder
-  private var _lastException: Option[Throwable] = None
+  private val buf = new StringBuilder
 
   /**
    * Tries to interpret the given command, adding it to the internal buffer if it is incomplete.
@@ -28,7 +26,7 @@ class Runner {
     val (status, stdout) = Util.getWithOut(intp.interpret(cmdToRun))
 
     if(status != Results.Incomplete) {
-      buf = new StringBuilder
+      buf.clear()
 
       Some(Runner.Result(cmdToRun, stdout.trim, status match {
         case Results.Error if !intp.reporter.hasErrors =>

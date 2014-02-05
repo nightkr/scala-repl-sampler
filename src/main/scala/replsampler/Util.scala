@@ -1,7 +1,6 @@
 package replsampler
 
-import java.io.{StringWriter, Reader, OutputStream, InputStream}
-import scala.collection.mutable
+import java.io.{StringWriter, OutputStream}
 
 object Util {
   class StringWriterOutputStream {
