@@ -20,7 +20,9 @@ class Runner {
     if (buf.isEmpty && cmd.trim == "")
       return Some(Runner.Result(cmd, "", Runner.Success))
 
-    buf.append(s"\n$cmd")
+    if (buf.nonEmpty)
+      buf.append("\n")
+    buf.append(cmd)
     val cmdToRun = buf.toString()
 
     val (status, stdout) = Util.getWithOut(intp.interpret(cmdToRun))
