@@ -19,6 +19,9 @@ class Runner {
    * @return Some(REPL.Result) if the given statement was complete, otherwise None
    */
   def bufInterpret(cmd: String): Option[Runner.Result] = {
+    if (buf.isEmpty && cmd.trim == "")
+      return Some(Runner.Result(cmd, "", Runner.Success))
+
     buf.append(s"\n$cmd")
     val cmdToRun = buf.toString()
 
