@@ -6,7 +6,15 @@ import scala.tools.nsc.interpreter.{Results, IMain}
 class Runner {
   val intp = {
     val settings = new Settings
-    settings.classpath.value = System.getProperty("java.class.path")
+
+    // Try to build up the classpath for the compiler to use. Since SBT uses a custom classloader
+    // we need to detect if we should use it's protocol for carrying over the classpath
+    // or just import it from the Java system property.
+    if (Option(classOf[Runner].getClassLoader.getResource("app.class.path")).isDefined)
+      settings.embeddedDefaults[Runner]
+    else
+      settings.classpath.value = System.getProperty("java.class.path")
+
     new IMain(settings)
   }
 
