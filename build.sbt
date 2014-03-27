@@ -7,6 +7,8 @@ libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.0" % "test"
 
+libraryDependencies += "org.apache.ivy" % "ivy" % "2.3.0"
+
 resourceGenerators in Compile <+= Def.task {
   val file = (resourceManaged in Compile).value / "scala-repl-sampler.properties"
   val props = new Properties
